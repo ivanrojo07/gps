@@ -23,7 +23,8 @@ class Punto extends Model
     ];
     protected $hidden = [
     	"created_at",
-    	"updated_at"
+    	"updated_at",
+        "historial_id"
     ];
 
     public function interacciones(){
