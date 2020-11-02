@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Historial;
 use App\Models\Interaccion;
 use App\Models\Punto;
 use Carbon\Carbon;
@@ -18,8 +19,15 @@ class PuntoObserver
     public function created(Punto $punto)
     {
         //
+        $historial = Historial::firstOrCreate([
+            "usuario_id"=>$punto->usuario_id,
+            "fecha" =>$punto->fecha
+        ]);
+        $punto->historial_id = $historial->id;
+        $punto->save();
+        
         $hora_inicio = $punto->hora;
-        $hora_fin = Carbon::parse($punto->hora)->addHour(3)->toTimeString();
+        $hora_fin = Carbon::parse($punto->hora)->addMinutes(15)->toTimeString();
         // dd($hora_fin->toTimeString());
         $fecha = $punto->fecha;
         $puntos = Punto::whereDate("fecha",$fecha)->whereTime("hora",">=",$hora_inicio)->whereTime("hora","<=",$hora_fin)->where("usuario_id","!=",$punto->usuario_id)->distinct("usuario_id")->get();
@@ -40,7 +48,7 @@ class PuntoObserver
                 )
             );
             if($distancia <= 15.0){
-                $interaccion = Interaccion::create([
+                $interaccions = Interaccion::createMany([
                     "usuario_id" => $punto->usuario_id,
                     "interaccion_id" => $p->usuario_id,
                     "lat_usuario" => $punto->lat,
@@ -48,8 +56,22 @@ class PuntoObserver
                     "lat_interaccion" =>$p->lat,
                     "lng_interaccion" =>$p->lng,
                     "distancia" => $distancia,
-                    "fecha" => $punto->fecha,
                     "hora" => $punto->hora,
+                    "fecha" => $punto->fecha,
+                    "punto_usuario_id" => $punto->id,
+                    "punto_interaccion_id" => $p->id,
+                ],[
+                    "usuario_id" => $p->usuario_id,
+                    "interaccion_id" => $punto->usuario_id,
+                    "lat_usuario" => $p->lat,
+                    "lng_usuario" => $p->lng,
+                    "lat_interaccion" =>$punto->lat,
+                    "lng_interaccion" =>$punto->lng,
+                    "distancia" => $distancia,
+                    "hora" => $p->hora,
+                    "fecha" => $p->fecha,
+                    "punto_usuario_id" => $p->id,
+                    "punto_interaccion_id" => $punto->id,
                 ]);
             }
         }

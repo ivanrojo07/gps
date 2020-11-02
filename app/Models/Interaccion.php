@@ -19,11 +19,23 @@ class Interaccion extends Model
         "lng_interaccion",
 		"distancia",
 		"fecha",
-		"hora"
+        "hora",
+		"punto_usuario_id",
+        "punto_interaccion_id"
     ];
 
     protected $hidden = [
     	"created_at",
-    	"updated_at"
+    	"updated_at",
+        "punto_usuario_id",
+        "punto_interaccion_id"
     ];
+
+    public function punto_usuario(){
+        return $this->hasOne('App\Models\Punto', 'id', 'punto_usuario_id');
+    }
+
+    public function punto_interaccion(){
+        return $this->hasOne('App\Models\Punto', 'id', 'punto_interaccion_id');
+    }
 }

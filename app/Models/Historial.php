@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Punto extends Model
+class Historial extends Model
 {
     use HasFactory;
 
@@ -16,9 +16,6 @@ class Punto extends Model
      */
     protected $fillable = [
     	"usuario_id",
-		"lat",
-		"lng",
-		"hora",
 		"fecha"
     ];
     protected $hidden = [
@@ -26,7 +23,7 @@ class Punto extends Model
     	"updated_at"
     ];
 
-    public function interacciones(){
-        return $this->hasMany('App\Models\Interaccion', 'punto_usuario_id', 'id');
+    public function puntos(){
+        return $this->hasMany('App\Models\Punto', 'historial_id', 'id');
     }
 }

@@ -24,6 +24,11 @@ class CreateInteraccionsTable extends Migration
             $table->decimal("distancia",4,2);
             $table->date("fecha",0);
             $table->time("hora",0);
+            $table->bigInteger("punto_usuario_id")->nullable();
+            $table->bigInteger("punto_interaccion_id")->nullable();
+
+            $table->foreign("punto_usuario_id")->references("id")->on("puntos");
+            $table->foreign("punto_interaccion_id")->references("id")->on("puntos");
             $table->timestamps();
         });
     }
