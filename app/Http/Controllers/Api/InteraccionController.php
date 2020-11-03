@@ -28,8 +28,6 @@ class InteraccionController extends Controller
         $tiempo = $request->tiempo;
         // dd($fecha_fin);
     	$interacciones = Interaccion::where("usuario_id",$usuario_id)->whereDate("fecha", ">=",$fecha_fin)->whereDate("fecha","<=",$fecha)->whereTime("hora", "<=",$tiempo)->where("distancia","<=",$distancia)->has("punto_usuario")->orderBy("interaccion_id",'ASC')->orderBy("fecha","ASC")->orderBy('hora',"ASC")->get();
-
-        // dd($interacciones);
         $data = new InteraccionCollection($interacciones);
     	return response()->json($data);
 

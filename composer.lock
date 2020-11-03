@@ -1252,6 +1252,11 @@
             "time": "2020-10-27T21:28:35+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 5ab9bf4daeb1cdcc4e87331dd9dd2dbdb90b1133
             "name": "laravel/sanctum",
             "version": "v2.7.0",
             "source": {
@@ -1312,6 +1317,10 @@
             "time": "2020-10-20T18:37:43+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+>>>>>>> mapa de puntos de interaccion
+>>>>>>> 5ab9bf4daeb1cdcc4e87331dd9dd2dbdb90b1133
             "name": "laravel/tinker",
             "version": "v2.4.2",
             "source": {
@@ -1571,6 +1580,11 @@
             "time": "2020-10-18T11:50:25+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 5ab9bf4daeb1cdcc4e87331dd9dd2dbdb90b1133
             "name": "livewire/livewire",
             "version": "v2.3.1",
             "source": {
@@ -1633,6 +1647,10 @@
             "time": "2020-10-27T19:08:41+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+>>>>>>> mapa de puntos de interaccion
+>>>>>>> 5ab9bf4daeb1cdcc4e87331dd9dd2dbdb90b1133
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.8.34",
             "source": {
