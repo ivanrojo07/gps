@@ -17,12 +17,12 @@ class Interaccion extends JsonResource
         // return parent::toArray($request);
         return [
             "id" => $this->id,
-            "usuario_id" => $this->usuario_id,
-            "interaccion_id" => $this->interaccion_id,
-            "lat_usuario" => $this->lat_usuario,
-            "lng_usuario" => $this->lng_usuario,
-            "lat_interaccion" => $this->lat_interaccion,
-            "lng_interaccion" => $this->lng_interaccion,
+            // "usuario_id" => $this->usuario_id,
+            // "interaccion_id" => $this->interaccion_id,
+            // "lat_usuario" => $this->lat_usuario,
+            // "lng_usuario" => $this->lng_usuario,
+            // "lat_interaccion" => $this->lat_interaccion,
+            // "lng_interaccion" => $this->lng_interaccion,
             "distancia" => $this->distancia,
             "fecha" => $this->fecha,
             "hora" => $this->hora,
