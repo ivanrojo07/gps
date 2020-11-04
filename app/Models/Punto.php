@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
+
 
 class Punto extends Model
 {
@@ -29,5 +31,27 @@ class Punto extends Model
 
     public function interacciones(){
         return $this->hasMany('App\Models\Interaccion', 'punto_usuario_id', 'id');
+    }
+
+
+    public function usuario_360(){
+        $response = Http::post(env("CLARO_URL"),[
+            "id360" => $this->usuario_id
+        ]);
+        if ($response->ok()) {
+            if ($response->json()["success"]) {
+                $array = $response->json();
+                $obj = [
+                    "nombre" => $array["nombre"],
+                    "apellido_paterno" => $array["apellido_paterno"],
+                    "apellido_materno" => $array["apellido_materno"],
+                    "icon" => $array["icon"],
+                ];
+                return $obj;
+
+            }
+            return null;
+        }
+        return $response->body();
     }
 }
