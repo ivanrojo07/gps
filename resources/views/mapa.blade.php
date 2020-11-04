@@ -6,93 +6,147 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="grid grid-cols-5 gap-4">
                     
                     <div class="col-span-2 rounded-t-lg overflow-hidden border-t border-l border-r border-gray-400 p-10 flex justify-center">
-                        <form class="w-full max-w-sm" id="puntos-form" action="{{ route('buscar_puntos') }}" method="POST">
-                            <div class="flex mb-4 ">
-                                <div class="w-full text-center text-xl h-12">
-                                    Busqueda de Interacciones
-                                </div>
-                            </div>
-                            @csrf
+                        <div class="grid">
                             
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                   <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-fecha">
-                                        Fecha
-                                    </label>
+                            <form class="w-full" id="puntos-form" action="{{ route('buscar_puntos') }}" method="POST">
+                                <div class="flex mb-4 ">
+                                    <div class="w-full text-center text-xl h-12">
+                                        Busqueda de Interacciones
+                                    </div>
                                 </div>
-                                <div class="md:w-2/3">
-                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-fecha" type="date" value="{{ old("fecha")}}" name="fecha">
-                                    @error('fecha')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                @csrf
+                                
+                                <div class="md:flex md:items-center mb-6">
+                                    <div class="md:w-1/3">
+                                       <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-fecha">
+                                            Fecha
+                                        </label>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-fecha" type="date" value="{{ old("fecha")}}" name="fecha">
+                                        @error('fecha')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="md:flex md:items-center mb-6">
+                                    <div class="md:w-1/3">
+                                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-dias">
+                                            Días
+                                        </label>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-dias" type="number" step="1" min="0" max="15" placeholder="Días a registrar" value="{{old("dias")}}" name="dias">
+                                        @error('dias')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="md:flex md:items-center mb-6">
+                                    <div class="md:w-1/3">
+                                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-usuario">
+                                            ID del usuario
+                                        </label>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-usuario" type="number" step="1" min="0" placeholder="Identificador" name="usuario_id" value="{{old("usuario_id")}}">
+                                        @error('usuario_id')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="md:flex md:items-center mb-6">
+                                    <div class="md:w-1/3">
+                                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-distancia">
+                                            Distancia
+                                        </label>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-distancia" type="number" step="1" min="0" max="30" placeholder="Rango de busqueda" value="{{old("distancia")}}" name="distancia">
+                                        @error('distancia')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="md:flex md:items-center mb-6">
+                                    <div class="md:w-1/3">
+                                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-tiempo">
+                                            Tiempo
+                                        </label>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-tiempo" type="time"  value="{{old("tiempo")}}" placeholder="Rango de tiempo"  name="tiempo">
+                                        @error('tiempo')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="md:flex md:items-center">
+                                    <div class="md:w-1/3"></div>
+                                    <div class="md:w-2/3">
+                                        <button class="shadow bg-gray-400 hover:bg-gray-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                                            Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="w-full mt-2 w-full lg:max-w-full lg:flex">
+                                <div class="w-full border-r border-b border-l border-t border-gray-400  p-4 flex flex-col justify-between leading-normal">
+                                    <div class="flex mb-4 ">
+                                        <div class="w-full text-center text-xl h-12">
+                                            Busqueda de Interacciones
+                                        </div>
+                                    </div>
+                                    @isset ($interacciones)
+                                    @foreach ($interacciones as $key=>$interaccion)
+                                        <div class="w-full flex mt-2 mb-2 items-center">
+                                            <div class="w-full grid grid-flow-row grid-cols-3 grid-rows-1 gap-4">
+                                                <div>
+                                                    <div class="flex items-center ">
+                                                        <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->punto_usuario->usuario_360() ? $interaccion->punto_usuario->usuario_360()['image'] : asset("images/user.png") }}" alt="avatar">
+                                                        <div class="text-sm">
+                                                            <p class="text-gray-900 leading-none">{{$interaccion->punto_usuario->usuario_360() ? $interaccion->punto_usuario->usuario_360()['nombre']."  ".$interaccion->punto_usuario->usuario_360()['apellido_paterno']." ".$interaccion->punto_usuario->usuario_360()['apellido_paterno'] : $interaccion->punto_usuario->usuario_id}}</p>
+                                                             <p class="text-gray-600"><strong>Fecha:</strong> {{$interaccion->punto_usuario->fecha}}</p>
+                                                            <p class="text-gray-600"><strong>Hora:</strong> {{$interaccion->punto_usuario->hora}}</p>
+                                                        </div>
+                                                    </div>
+                                                  
+                                                   
+                                                </div>
+                                                <div>
+                                                    <div class="flex items-center">
+                                                        <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->punto_interaccion->usuario_360() ? $interaccion->punto_interaccion->usuario_360()['image'] : asset("images/user.png") }}" alt="avatar">
+                                                        <div class="text-sm">
+                                                            <p class="text-gray-900 leading-none">{{$interaccion->punto_interaccion->usuario_360() ? $interaccion->punto_interaccion->usuario_360()['nombre']."  ".$interaccion->punto_interaccion->usuario_360()['apellido_paterno']." ".$interaccion->punto_interaccion->usuario_360()['apellido_paterno'] : $interaccion->punto_interaccion->usuario_id}}</p>
+                                                             <p class="text-gray-600"><strong>Fecha:</strong> {{$interaccion->punto_interaccion->fecha}}</p>
+                                                            <p class="text-gray-600"><strong>Hora:</strong> {{$interaccion->punto_interaccion->hora}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="flex items-center">
+                                                        <button class="bg-purple-300 mt-5 mr-2 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                                                          Notificar
+                                                        </button>
+                                                        <button class="bg-purple-300 mt-5 mr-2 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                                                          llamar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    @endforeach
+                                    @endisset
                                 </div>
                             </div>
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-dias">
-                                        Días
-                                    </label>
-                                </div>
-                                <div class="md:w-2/3">
-                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-dias" type="number" step="1" min="0" max="15" placeholder="Días a registrar" value="{{old("dias")}}" name="dias">
-                                    @error('dias')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-usuario">
-                                        ID del usuario
-                                    </label>
-                                </div>
-                                <div class="md:w-2/3">
-                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-usuario" type="number" step="1" min="0" placeholder="Identificador" name="usuario_id" value="{{old("usuario_id")}}">
-                                    @error('usuario_id')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-distancia">
-                                        Distancia
-                                    </label>
-                                </div>
-                                <div class="md:w-2/3">
-                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-distancia" type="number" step="1" min="0" max="30" placeholder="Rango de busqueda" value="{{old("distancia")}}" name="distancia">
-                                    @error('distancia')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-tiempo">
-                                        Tiempo
-                                    </label>
-                                </div>
-                                <div class="md:w-2/3">
-                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-tiempo" type="time"  value="{{old("tiempo")}}" placeholder="Rango de tiempo"  name="tiempo">
-                                    @error('tiempo')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="md:flex md:items-center">
-                                <div class="md:w-1/3"></div>
-                                <div class="md:w-2/3">
-                                    <button class="shadow bg-gray-400 hover:bg-gray-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-                                        Buscar
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+
                     </div>
                     <div class="col-span-3 ">
                        <div class="m-5" id="map" style="height: 550px;"></div>

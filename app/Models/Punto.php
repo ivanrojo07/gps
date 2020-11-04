@@ -41,11 +41,13 @@ class Punto extends Model
         if ($response->ok()) {
             if ($response->json()["success"]) {
                 $array = $response->json();
+                // dd($array["icon"]);
                 $obj = [
                     "nombre" => $array["nombre"],
                     "apellido_paterno" => $array["apellido_paterno"],
                     "apellido_materno" => $array["apellido_materno"],
-                    "icon" => $array["icon"],
+                    "icon" => (isset($array["icon"]) ? $array["icon"] : "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"),
+                    "image" => (isset($array["img"]) ? $array["img"] : "/images/user.png"),
                 ];
                 return $obj;
 
