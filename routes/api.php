@@ -31,3 +31,6 @@ Route::post('/historial_interaccion',[InteraccionController::class, "historialIn
 Route::post('/puntos_interacciones',[PuntoController::class, "interacciones"]);
 // Muestra los puntos de un usuario en el dia
 Route::post('/puntos_dia', HistorialController::class);
+
+// Para  consumir los puntos de la vista mapa
+Route::get("/web-interaccion/{interaccion}",[InteraccionController::class,"interaccion"]);

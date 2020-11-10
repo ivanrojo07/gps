@@ -14,20 +14,12 @@ class Interaccion extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             "id" => $this->id,
-            // "usuario_id" => $this->usuario_id,
-            // "interaccion_id" => $this->interaccion_id,
-            // "lat_usuario" => $this->lat_usuario,
-            // "lng_usuario" => $this->lng_usuario,
-            // "lat_interaccion" => $this->lat_interaccion,
-            // "lng_interaccion" => $this->lng_interaccion,
-            "distancia" => $this->distancia,
-            "fecha" => $this->fecha,
-            "hora" => $this->hora,
-            "punto_usuario" => $this->punto_usuario,
-            "punto_interaccion" => $this->punto_interaccion
+            "usuario_id" => $this->usuario_id,
+            "interaccion_id" => $this->interaccion_id,
+            "tiempo" => $this->tiempo,
+            "punto_interacciones"=> $this->punto_interaccions->load(['punto_usuario','punto_interaccion'])->makeHidden(["punto_usuario_id",'punto_interaccion_id','interaccion_id','created_at','updated_at'])
         ];
     }
 }

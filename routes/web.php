@@ -30,5 +30,9 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
 	Route::get('/mapa', [MapaController::class,"showMapa"])->name('mapa');
 
 	Route::post('/mapa',[MapaController::class,"setPuntos"])->name('buscar_puntos');
+
+	Route::get("/historial",[MapaController::class,"showHistorico"])->name("historico");
+
+	Route::post("/historial",[MapaController::class,"setHistorico"])->name("set_historico");
 });
 

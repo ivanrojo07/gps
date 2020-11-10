@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Historial;
 use App\Models\Interaccion;
 use App\Models\Punto;
+use App\Models\PuntoInteraccion;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -25,12 +26,11 @@ class PuntoObserver
         ]);
         $punto->historial_id = $historial->id;
         $punto->save();
-        
         $hora_inicio = $punto->hora;
         $hora_fin = Carbon::parse($punto->hora)->addHours(3)->toTimeString();
         // dd($hora_fin->toTimeString());
         $fecha = $punto->fecha;
-        $puntos = Punto::whereDate("fecha",$fecha)->whereTime("hora",">=",$hora_inicio)->whereTime("hora","<=",$hora_fin)->where("usuario_id","!=",$punto->usuario_id)->distinct("usuario_id")->get();
+        $puntos = Punto::whereDate("fecha",$fecha)->whereTime("hora",">=",$hora_inicio)->whereTime("hora","<=",$hora_fin)->where("usuario_id","!=",$punto->usuario_id)->get();
             // https://es.stackoverflow.com/questions/117887/calcular-distancia-entre-dos-puntos-api-google-maps-php
         $radio = 6371000;
         $r_lat0 = deg2rad($punto->lat);
@@ -51,22 +51,19 @@ class PuntoObserver
                 $hora_1 = Carbon::create($punto->hora);
                 $hora_2 = Carbon::create($p->hora);
                 $tiempo = $hora_1->diffInSeconds($hora_2);
-                // var_dump($punto->hora);
-                // var_dump($p->hora);
-                // var_dump();
-                $interaccions = Interaccion::create([
-                    "usuario_id" => $punto->usuario_id,
+                $interaccion = Interaccion::firstOrCreate([
+                    "usuario_id"=>$punto->usuario_id,
                     "interaccion_id" => $p->usuario_id,
-                    "lat_usuario" => $punto->lat,
-                    "lng_usuario" => $punto->lng,
-                    "lat_interaccion" =>$p->lat,
-                    "lng_interaccion" =>$p->lng,
+                    "fecha" =>$punto->fecha
+                ]);
+                $punto_interaccion = PuntoInteraccion::create([
                     "distancia" => $distancia,
-                    "hora" => date("H:i:s",$tiempo),
-                    "fecha" => $punto->fecha,
                     "punto_usuario_id" => $punto->id,
                     "punto_interaccion_id" => $p->id,
+                    "interaccion_id" => $interaccion->id,
+                    "tiempo" => date("H:i:s",$tiempo),
                 ]);
+                
             }
         }
     }

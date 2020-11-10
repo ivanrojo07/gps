@@ -22,7 +22,8 @@ class Punto extends JsonResource
             "lng" => $this->lng,
             "hora" => $this->hora,
             "fecha" => $this->fecha,
-            "interacciones" => $this->interacciones->makeHidden(['lat_usuario', 'lng_usuario', 'lat_interaccion', 'lng_interaccion', "fecha","hora" ])->load(["punto_interaccion"])
+            "tiempo" =>$this->tiempo,
+            "interacciones" => $this->punto_interaccions
         ];
     }
 }

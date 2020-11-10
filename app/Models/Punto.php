@@ -29,8 +29,8 @@ class Punto extends Model
         "historial_id"
     ];
 
-    public function interacciones(){
-        return $this->hasMany('App\Models\Interaccion', 'punto_usuario_id', 'id');
+    public function punto_interaccions(){
+        return $this->hasMany('App\Models\PuntoInteraccion', 'punto_usuario_id', 'id');
     }
 
 
