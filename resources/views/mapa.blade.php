@@ -100,54 +100,57 @@
                     </div>
                     <div class="col-span-2 rounded-t-lg overflow-hidden border-t border-l border-r border-b border-gray-400 p-2" >
                         <div class="w-full mt-2 w-full lg:max-w-full lg:flex">
-                            <div class="w-ful p-4 flex flex-col justify-between leading-normal text-gray-700 p-4 overscroll-none overflow-auto " style="height: 33rem !important;">
-                                <div class="flex mb-4 ">
-                                    <div class="w-full text-center text-xl h-12">
+                            <div class="w-screen p-4 flex flex-col justify-between leading-normal text-gray-700 p-4 overscroll-none overflow-auto " style="height: 33rem !important;">
+                                <div class="flex mb-4 items-stretch">
+                                    <div class="flex-1 text-center text-xl h-12">
                                         Busqueda de Interacciones
+                                    </div>
+                                    <div class="flex-1 text-center">
+                                        @isset ($interacciones)
+                                            <button class="modal-button-all bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                                                Notificar a todos
+                                            </button>
+                                        @endisset
                                     </div>
                                 </div>
                                 @isset ($interacciones)
-                                @foreach ($interacciones as $key=>$interaccion)
-                                    <div class="w-full flex mt-2 mb-2 items-center punto " style="cursor: pointer;"  onclick="setCenter({{$interaccion->id}},{{$distancia}},'{{$tiempo}}')">
-                                        <div class="w-full grid grid-flow-row grid-cols-3 grid-rows-1 gap-4">
-                                            <div>
-                                                <div class="flex items-center ">
-                                                    <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_usuario360 ? $interaccion->info_usuario360['image'] : asset("images/user.png") }}" alt="avatar">
-                                                    <div class="text-sm">
-                                                        <p class="text-gray-900 leading-none">{{$interaccion->info_usuario360 ? $interaccion->info_usuario360['nombre']."  ".$interaccion->info_usuario360['apellido_paterno']." ".$interaccion->info_usuario360['apellido_materno'] : $interaccion->usuario_id}}</p>
+                                    @foreach ($interacciones as $key=>$interaccion)
+                                        <div class="w-full flex mt-2 mb-2 items-center punto " style="cursor: pointer;"  onclick="setCenter({{$interaccion->id}},{{$distancia}},'{{$tiempo}}')">
+                                            <div class="w-full grid grid-flow-row grid-cols-3 grid-rows-1 gap-4">
+                                                <div>
+                                                    <div class="flex items-center ">
+                                                        <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_usuario360 ? $interaccion->info_usuario360['image'] : asset("images/user.png") }}" alt="avatar">
+                                                        <div class="text-sm">
+                                                            <p class="text-gray-900 leading-none">{{$interaccion->info_usuario360 ? $interaccion->info_usuario360['nombre']."  ".$interaccion->info_usuario360['apellido_paterno']." ".$interaccion->info_usuario360['apellido_materno'] : $interaccion->usuario_id}}</p>
+                                                            <p class="text-gray-600"><strong>Fecha:</strong> {{$interaccion->fecha}}</p>
+                                                        </div>
+                                                    </div>
+                                                  
+                                                   
+                                                </div>
+                                                <div>
+                                                    <div class="flex items-center">
+                                                        <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['image'] : asset("images/user.png") }}" alt="avatar">
+                                                        <div class="text-sm">
+                                                            <p class="text-gray-900 leading-none">{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['nombre']."  ".$interaccion->info_interaccion360['apellido_paterno']." ".$interaccion->info_interaccion360['apellido_materno'] : $interaccion->interaccion_id}}</p>
+                                                            <p class="text-gray-600"><strong>Tiempo de interaccion:</strong> {{$interaccion->tiempo}}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                              
-                                               
-                                            </div>
-                                            <div>
-                                                <div class="flex items-center">
-                                                    <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['image'] : asset("images/user.png") }}" alt="avatar">
-                                                    <div class="text-sm">
-                                                        <p class="text-gray-900 leading-none">{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['nombre']."  ".$interaccion->info_interaccion360['apellido_paterno']." ".$interaccion->info_interaccion360['apellido_materno'] : $interaccion->interaccion_id}}</p>
-                                                         <p class="text-gray-600"><strong>Fecha:</strong> {{$interaccion->fecha}}</p>
-                                                        <p class="text-gray-600"><strong>Hora:</strong> {{$interaccion->tiempo}}</p>
+                                                <div>
+                                                    <div class="text-center">
+                                                        <button class="bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full" onclick="showModal({{$interaccion->interaccion_id}})">
+                                                          Notificar
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <div class="flex items-center">
-                                                    <button class="bg-purple-300 mt-5 mr-2 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
-                                                      Notificar
-                                                    </button>
-                                                    <button class="bg-purple-300 mt-5 mr-2 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
-                                                      llamar
-                                                    </button>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
-                                        
-                                    </div>
-                                @endforeach
+                                    @endforeach
                                 @endisset
                             </div>
                         </div>
-                       {{-- <div class="m-5" id="map" style="height: 550px;"></div> --}}
                     </div>
                 </div>
             </div>
@@ -156,7 +159,110 @@
             </div>
         </div>
     </div>
+
+    <div class="modal-all opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
+        <div class="modal-overlay-all fixed w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
+        <div class="absolute w-1/2 h-auto bg-white rounded-sm shadow-lg flex text-2xl">
+            <div class="container mx-auto">
+                <div class="flex-auto text-gray-700 text-center bg-gray-200 px-4 pt-2 pb-2">
+                    <h3>
+                        Notificar
+                        
+                    </h3>
+                    <span class="absolute top-0 right-0 m-3" onclick="toggleModal()">
+                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+                </div>
+                @isset ($interacciones)
+                    @foreach ($interacciones->unique("interaccion_id") as $key=>$interaccion)
+                    <div class="flex">
+                        <div class="flex-1 text-gray-700 text-center px-4 py-2 m-2">
+                            <div class="flex items-center ">
+                                <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['image'] : asset("images/user.png") }}" alt="avatar">
+                                <div class="text-sm">
+                                    <p class="text-gray-900 leading-none">{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['nombre']."  ".$interaccion->info_interaccion360['apellido_paterno']." ".$interaccion->info_interaccion360['apellido_materno'] : $interaccion->interaccion_id}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-4 text-gray-700 text-center px-4 py-2 m-2">
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                    @endforeach
+                @endisset
+                <div class="flex">
+                    <textarea class="py-2 m-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mensaje a los usuario"></textarea>
+                </div>
+                <div class="text-center m-2">
+                    <button class="bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @isset ($interacciones)
+        @foreach ($interacciones as $key=>$interaccion)
+            <div class="modal-{{$interaccion->interaccion_id}} opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
+                <div class="modal-overlay-all fixed w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
+                <div class="absolute w-1/2 h-auto bg-white rounded-sm shadow-lg flex text-2xl">
+                    <div class="container mx-auto">
+                        <div class="flex-auto text-gray-700 text-center bg-gray-200 px-4 pt-2 pb-2">
+                            <h3>
+                                Notificar
+                                
+                            </h3>
+                            <span class="absolute top-0 right-0 m-3" onclick="showModal({{$interaccion->interaccion_id}})">
+                                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                            </span>
+                        </div>
+                        <div class="flex">
+                            <div class="text-gray-700 text-center px-4 py-2 m-2">
+                                <div class="flex items-center ">
+                                    <img class="w-10 h-10 rounded-full mr-4" src="{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['image'] : asset("images/user.png") }}" alt="avatar">
+                                    <div class="text-sm">
+                                        <p class="text-gray-900 leading-none">{{$interaccion->info_interaccion360 ? $interaccion->info_interaccion360['nombre']."  ".$interaccion->info_interaccion360['apellido_paterno']." ".$interaccion->info_interaccion360['apellido_materno'] : $interaccion->interaccion_id}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="flex">
+                            <textarea class="py-2 m-2 bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="Mensaje a los usuario"></textarea>
+                        </div>
+                        <div class="text-center m-2">
+                            <button class="bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endisset
+
 </x-app-layout>
+
+{{-- Modal --}}
+<script type="text/javascript">
+    const button = document.querySelector('.modal-button-all')
+    button.addEventListener('click', toggleModal)
+
+
+    function toggleModal () {
+        const modal = document.querySelector('.modal-all')
+        modal.classList.toggle('opacity-0')
+        modal.classList.toggle('pointer-events-none')
+    }
+
+    function showModal(id){
+        const modal = document.querySelector('.modal-'+id)
+          modal.classList.toggle('opacity-0')
+          modal.classList.toggle('pointer-events-none')
+    }
+
+</script>
 
 <script type="text/javascript">
     var map;

@@ -26,3 +26,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+
+const button = document.querySelector('.modal-button')
+button.addEventListener('click', toggleModal)
+
+const overlay = document.querySelector('.modal-overlay')
+overlay.addEventListener('click', toggleModal)
+
+
+function toggleModal () {
+	const modal = document.querySelector('.modal')
+  modal.classList.toggle('opacity-0')
+  modal.classList.toggle('pointer-events-none')
+}

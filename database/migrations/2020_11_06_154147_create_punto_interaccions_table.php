@@ -20,7 +20,7 @@ class CreatePuntoInteraccionsTable extends Migration
             $table->bigInteger("interaccion_id");
             $table->decimal("distancia",8,2);
             $table->time("tiempo",0);
-            
+            $table->time("duracion",0)->default("00:00:00");
             $table->foreign("punto_usuario_id")->references("id")->on("puntos");
             $table->foreign("punto_interaccion_id")->references("id")->on("puntos");
             $table->foreign("interaccion_id")->references("id")->on("interaccions");
