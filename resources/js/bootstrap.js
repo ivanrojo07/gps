@@ -10,6 +10,7 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -28,15 +29,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 
-const button = document.querySelector('.modal-button')
-button.addEventListener('click', toggleModal)
 
-const overlay = document.querySelector('.modal-overlay')
-overlay.addEventListener('click', toggleModal)
-
-
-function toggleModal () {
-	const modal = document.querySelector('.modal')
-  modal.classList.toggle('opacity-0')
-  modal.classList.toggle('pointer-events-none')
-}
+$("#puntos-form").submit(function(){
+    if($("#puntos-form").valid()){
+        alert("es valido");
+    }
+    else{
+        alert("no es valido");
+    }
+});

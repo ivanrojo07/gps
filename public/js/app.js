@@ -19375,16 +19375,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-var button = document.querySelector('.modal-button');
-button.addEventListener('click', toggleModal);
-var overlay = document.querySelector('.modal-overlay');
-overlay.addEventListener('click', toggleModal);
+document.getElementById("puntos-form").onsubmit = function () {
+  alert("hola");
+};
 
-function toggleModal() {
-  var modal = document.querySelector('.modal');
-  modal.classList.toggle('opacity-0');
-  modal.classList.toggle('pointer-events-none');
-}
+$("#puntos-form").submit(function () {
+  if ($("#puntos-form").valid()) {
+    alert("es valido");
+  } else {
+    alert("no es valido");
+  }
+});
 
 /***/ }),
 

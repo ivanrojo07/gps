@@ -30,6 +30,7 @@ class PuntoObserver
         $hora_fin = Carbon::parse($punto->hora)->addHours(3)->toTimeString();
         // dd($hora_fin->toTimeString());
         $fecha = $punto->fecha;
+        // $puntos = Punto::whereDate("fecha",$fecha)->whereBetween('hora', [$hora_inicio, $hora_fin])->where("usuario_id","!=",$punto->usuario_id)->get();
         $puntos = Punto::whereDate("fecha",$fecha)->whereTime("hora",">=",$hora_inicio)->whereTime("hora","<=",$hora_fin)->where("usuario_id","!=",$punto->usuario_id)->get();
             // https://es.stackoverflow.com/questions/117887/calcular-distancia-entre-dos-puntos-api-google-maps-php
         $radio = 6371000;

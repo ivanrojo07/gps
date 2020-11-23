@@ -28,7 +28,7 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-fecha" type="date" value="{{ old("fecha")}}" name="fecha">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-fecha" type="date" value="{{ old("fecha")}}" name="fecha" autofocus="" required="">
                                         @error('fecha')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -41,7 +41,7 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-dias" type="number" step="1" min="0" max="15" placeholder="Días a registrar" value="{{old("dias")}}" name="dias">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-dias" type="number" step="1" min="0" max="15" placeholder="Días a registrar" value="{{old("dias")}}" name="dias" required="">
                                         @error('dias')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -54,7 +54,7 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-usuario" type="number" step="1" min="0" placeholder="Identificador" name="usuario_id" value="{{old("usuario_id")}}">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-usuario" type="number" step="1" min="0" placeholder="Identificador" name="usuario_id" value="{{old("usuario_id")}}" required="">
                                         @error('usuario_id')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -67,7 +67,7 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-distancia" type="number" step="1" min="0" max="30" placeholder="Rango de busqueda" value="{{old("distancia")}}" name="distancia">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-distancia" type="number" step="1" min="0" max="30" placeholder="Rango de busqueda" value="{{old("distancia")}}" name="distancia" required="">
                                         @error('distancia')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -80,7 +80,7 @@
                                         </label>
                                     </div>
                                     <div class="md:w-2/3">
-                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-tiempo" type="time"  value="{{old("tiempo")}}" placeholder="Rango de tiempo"  name="tiempo">
+                                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="inline-tiempo" type="time"  value="{{old("tiempo")}}" placeholder="Rango de tiempo"  name="tiempo" required="">
                                         @error('tiempo')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -100,16 +100,19 @@
                     </div>
                     <div class="col-span-2 rounded-t-lg overflow-hidden border-t border-l border-r border-b border-gray-400 p-2" >
                         <div class="w-full mt-2 w-full lg:max-w-full lg:flex">
-                            <div class="w-screen p-4 flex flex-col justify-between leading-normal text-gray-700 p-4 overscroll-none overflow-auto " style="height: 33rem !important;">
+                            <div class="w-screen p-4 flex flex-col leading-normal text-gray-700 p-4 overscroll-none overflow-auto " style="height: 33rem !important;">
                                 <div class="flex mb-4 items-stretch">
                                     <div class="flex-1 text-center text-xl h-12">
                                         Busqueda de Interacciones
                                     </div>
                                     <div class="flex-1 text-center">
                                         @isset ($interacciones)
+                                        @if($interacciones->count() > 0)
                                             <button class="modal-button-all bg-purple-300 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full">
                                                 Notificar a todos
                                             </button>
+
+                                        @endif
                                         @endisset
                                     </div>
                                 </div>
@@ -241,11 +244,21 @@
             </div>
         @endforeach
     @endisset
+    <div id="spinner" class="opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
+        <div class="modal-overlay-all fixed w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
+        <div class="loader "></div>
+    </div>
 
 </x-app-layout>
 
 {{-- Modal --}}
 <script type="text/javascript">
+   document.getElementById("puntos-form").onsubmit = function() {
+        var spinner = document.getElementById("spinner");
+        spinner.classList.toggle('opacity-0')
+    };
+    
+
     const button = document.querySelector('.modal-button-all')
     button.addEventListener('click', toggleModal)
 
@@ -261,7 +274,6 @@
           modal.classList.toggle('opacity-0')
           modal.classList.toggle('pointer-events-none')
     }
-
 </script>
 
 <script type="text/javascript">
