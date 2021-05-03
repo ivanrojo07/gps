@@ -26,9 +26,14 @@ class HistorialController extends Controller
 
         $usuario_id = $request->usuario_id;
         $fecha = $request->fecha;
-
         $historial = Historial::where("fecha",$fecha)->where("usuario_id", $usuario_id)->first();
-        $response = new HistorialResource($historial);
-        return response()->json(["data"=>$response],200);
+        if($historial){
+            $response = new HistorialResource($historial);
+            return response()->json(["data"=>$response],200);
+        }
+        else{
+            return response()->json(["data"=>null],200);
+        }
+
     }
 }

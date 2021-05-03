@@ -30,11 +30,3 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 
-$("#puntos-form").submit(function(){
-    if($("#puntos-form").valid()){
-        alert("es valido");
-    }
-    else{
-        alert("no es valido");
-    }
-});

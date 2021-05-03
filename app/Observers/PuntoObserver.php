@@ -1,5 +1,5 @@
 <?php
-
+// TODO: Pongan la distancia y duración de prevención para identificarlo es menos de 2.5 metros por mas de 10 o 5 min y que se identifique mas para el fin que esta hecho de rastreo de contactos en caso de de algún brote etc la la pantalla el propósito es que muestre cuando dos estan cerca por x tiempo que es cuando se contagia Tec
 namespace App\Observers;
 
 use App\Models\Historial;
@@ -27,7 +27,8 @@ class PuntoObserver
         $punto->historial_id = $historial->id;
         $punto->save();
         $hora_inicio = $punto->hora;
-        $hora_fin = Carbon::parse($punto->hora)->addHours(3)->toTimeString();
+        // $hora_fin = Carbon::parse($punto->hora)->addHours(3)->toTimeString();
+        $hora_fin = Carbon::parse($punto->hora)->addMinutes(10)->toTimeString();
         // dd($hora_fin->toTimeString());
         $fecha = $punto->fecha;
         // $puntos = Punto::whereDate("fecha",$fecha)->whereBetween('hora', [$hora_inicio, $hora_fin])->where("usuario_id","!=",$punto->usuario_id)->get();
@@ -48,7 +49,8 @@ class PuntoObserver
                     sin($r_lat0) * sin($r_lat)
                 )
             );
-            if($distancia <= 50.0){
+            // if($distancia <= 50.0){
+            if($distancia <= 2.5){
                 $hora_1 = Carbon::create($punto->hora);
                 $hora_2 = Carbon::create($p->hora);
                 $tiempo = $hora_1->diffInSeconds($hora_2);

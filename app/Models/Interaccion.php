@@ -57,25 +57,25 @@ class Interaccion extends Model
                 $array = $response->json();
                 // dd($array["icon"]);
                 $obj = [
-                    "nombre" => $array["nombre"],
-                    "apellido_paterno" => $array["apellido_paterno"],
-                    "apellido_materno" => $array["apellido_materno"],
-                    "icon" => ($array["icon"] ? $array["icon"] : null),
-                    "image" => ($array["img"] ? $array["img"] : null),
+                    "nombre" => ($array["nombre"] ? $array["nombre"] : ""),
+                    "apellido_paterno" => ($array["apellido_paterno"] ? $array["apellido_paterno"] : ""),
+                    "apellido_materno" => ($array["apellido_materno"] ? $array["apellido_materno"] : ""),
+                    "icon" => (isset($array["icon"]) ? $array["icon"] : null),
+                    "image" => (isset($array["img"]) ? $array["img"] : null),
                 ];
                 return $obj;
 
             }
-            return null;
+            return [];
         }
-        return $response->body();
+        return [];
     }
 
     public function getInfoInteraccion360Attribute(){
         $response = Http::post(env("CLARO_URL"),[
             "id360" => $this->interaccion_id
         ]);
-
+        // dd($response->json()['success']);
         if ($response->ok()) {
             if ($response->json()["success"]) {
                 $array = $response->json();
@@ -84,14 +84,14 @@ class Interaccion extends Model
                     "nombre" => ($array["nombre"] ? $array["nombre"] : ""),
                     "apellido_paterno" => ($array["apellido_paterno"] ? $array["apellido_paterno"] : ""),
                     "apellido_materno" => ($array["apellido_materno"] ? $array["apellido_materno"] : ""),
-                    "icon" => ($array["icon"] ? $array["icon"] : null),
-                    "image" => ($array["img"] ? $array["img"] : null),
+                    "icon" => (isset($array["icon"]) ? $array["icon"] : null),
+                    "image" => (isset($array["img"]) ? $array["img"] : null),
                 ];
                 return $obj;
 
             }
-            return null;
+            return [];
         }
-        return $response->body();
+        return [];
     }
 }

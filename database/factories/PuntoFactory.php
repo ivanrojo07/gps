@@ -21,10 +21,10 @@ class PuntoFactory extends Factory
      */
     public function definition()
     {
-        $usuario_id = mt_rand(9991336663, 9991336670);//9991336774);
+        $usuario_id = mt_rand(9991336783, 9991336785);//9991336774);
         $lat = mt_rand(19458180,19459780)/1000000;
         $lng = (mt_rand(99115250, 99115650)/1000000)*-1;
-        $fecha = $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now', $timezone = null)->format('Y-m-d');
+        $fecha = $this->faker->dateTimeBetween($startDate = '-1 days', $endDate = 'now', $timezone = null)->format('Y-m-d');
         $hora = $this->faker->time('H:i:s', rand(1,44000));
         return [
             //

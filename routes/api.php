@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\HistorialController;
 use App\Http\Controllers\Api\InteraccionController;
 use App\Http\Controllers\Api\PuntoController;
+use App\Http\Controllers\Api\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,11 @@ Route::post('/puntos_interacciones',[PuntoController::class, "interacciones"]);
 // Muestra los puntos de un usuario en el dia
 Route::post('/puntos_dia', HistorialController::class);
 
+// Usuario 360
+
+
+Route::post("/web-interaccion",[InteraccionController::class,"web_interaccion"]);
+Route::post("/interaccion_dia",[InteraccionController::class,"interaccionDia"]);
 // Para  consumir los puntos de la vista mapa
 Route::get("/web-interaccion/{interaccion}",[InteraccionController::class,"interaccion"]);
+Route::get('user360/{usuario_id}',UsuarioController::class);

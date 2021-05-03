@@ -19,6 +19,9 @@ class Interaccion extends JsonResource
             "usuario_id" => $this->usuario_id,
             "interaccion_id" => $this->interaccion_id,
             "tiempo" => $this->tiempo,
+            "fecha" => $this->fecha,
+            "info_usuario360" => ($this->info_usuario360 ? $this->info_usuario360 : null),
+            "info_interaccion360" => ($this->info_interaccion360 ? $this->info_interaccion360 : null),
             "punto_interacciones"=> $this->punto_interaccions->load(['punto_usuario','punto_interaccion'])->makeHidden(["punto_usuario_id",'punto_interaccion_id','interaccion_id','created_at','updated_at'])
         ];
     }

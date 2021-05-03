@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
+// Pongan la distancia y duración de prevención para identificarlo es menos de 2.5 metros por mas de 10 o 5 min y que se identifique mas para el fin que esta hecho de rastreo de contactos en caso de de algún brote etc la la pantalla el propósito es que muestre cuando dos estan cerca por x tiempo que es cuando se contagia Tec
 use App\Http\Controllers\Controller;
 use App\Models\Interaccion;
 use Carbon\Carbon;

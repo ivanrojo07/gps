@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InteraccionCollection;
+use App\Http\Resources\InteraccionWeb;
 use App\Models\Interaccion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -66,6 +67,50 @@ class InteraccionController extends Controller
         // dd($info_interaccion);
         $puntos = $interaccion->punto_interaccions()->with("punto_usuario","punto_interaccion")->get();
         return response()->json(["interaccion"=>$interaccion,"puntos"=>$puntos,"info_usuario"=>$info_usuario,'info_interaccion'=>$info_interaccion]);
+    }
+
+    public function web_interaccion(Request $request)
+    {
+        $request->validate([
+            "usuario_id" => "required|numeric",
+            "fecha" => "required|date|date_format:Y-m-d",
+            "dias" => "nullable|numeric|max:15",
+            "distancia" => "required|numeric|max:50",
+            "tiempo" => "required|date_format:H:i"
+        ]);
+        $usuario_id = $request->usuario_id;
+        $fecha = $request->fecha;
+        $dias = $request->dias ? $request->dias : "15";
+        $fecha_fin = Carbon::parse($fecha)->subDays($dias)->toDateString();
+        $distancia = $request->distancia;
+        $tiempo = $request->tiempo;
+        $interacciones = Interaccion::where("usuario_id",$usuario_id)->whereDate("fecha",">=",$fecha_fin)->whereDate("fecha","<=",$fecha)->whereHas("punto_interaccions",function(Builder $query) use ($distancia,$tiempo){
+            $query->where("punto_interaccions.distancia","<=",$distancia)->whereTime("punto_interaccions.tiempo","<=",$tiempo);;
+        })->orderBy("fecha","ASC")->get();
+        
+        $data = InteraccionWeb::collection($interacciones);
+        return response()->json(['data'=>$data]);
+    }
+
+    public function interaccionDia(Request $request)
+    {
+        $request->validate([
+            "usuario_id" => "required|numeric",
+            "fecha" => "required|date|date_format:Y-m-d"
+        ]);
+
+        $usuario_id = $request->usuario_id;
+        $fecha = $request->fecha;
+
+        $interaccions = Interaccion::where('usuario_id',$usuario_id)->whereDate('fecha',$fecha)->orderBy('fecha','ASC')->get();
+        if (count($interaccions)>0) {
+            $data = InteraccionWeb::collection($interaccions);
+            return response()->json(['data'=>$data],200);
+        }
+        else{
+            return response()->json(['data'=>null],200);
+        }
+
     }
 
     

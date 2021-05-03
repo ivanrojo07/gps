@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Historial extends JsonResource
+class InteraccionWeb extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +14,14 @@ class Historial extends JsonResource
      */
     public function toArray($request)
     {
-        
         return [
             "id" => $this->id,
             "usuario_id" => $this->usuario_id,
+            "interaccion_id" => $this->interaccion_id,
+            "tiempo" => $this->tiempo,
             "fecha" => $this->fecha,
-            "puntos" =>  $this->puntos()->with("punto_interaccions","punto_interaccions.punto_interaccion")->orderBy("id","asc")->get()
+            "info_usuario360" => ($this->info_usuario360 ? $this->info_usuario360 : null),
+            "info_interaccion360" => ($this->info_interaccion360 ? $this->info_interaccion360 : null)
         ];
     }
 }
