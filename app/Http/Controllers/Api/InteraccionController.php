@@ -29,7 +29,7 @@ class InteraccionController extends Controller
         $distancia = $request->distancia;
         $tiempo = $request->tiempo;
         $interacciones = Interaccion::where("usuario_id",$usuario_id)->whereDate("fecha",">=",$fecha_fin)->whereDate("fecha","<=",$fecha)->whereHas("punto_interaccions",function(Builder $query) use ($distancia,$tiempo){
-            $query->where("punto_interaccions.distancia","<=",$distancia)->whereTime("punto_interaccions.tiempo","<=",$tiempo);;
+            $query->where("punto_interaccions.distancia","<=",$distancia)->whereTime("punto_interaccions.tiempo","<=",$tiempo);
         })->orderBy("fecha","ASC")->with(["punto_interaccions"=>function($query) use ($distancia,$tiempo){
             $query->where("punto_interaccions.distancia","<=",$distancia)->whereTime("punto_interaccions.tiempo","<=",$tiempo);
         }])->get();
